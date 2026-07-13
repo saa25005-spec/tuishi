@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>西条の宝、幻の伝統茶 | 石鎚黒茶</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;700&family=Zen+Maru+Gothic:wght@400;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'washi-base': '#f7f4eb', /* 温かみのある生成り色 */
+                        'deep-green': '#1b3d2f', /* 深みのある茶葉の緑 */
+                        'accent-gold': '#c5a059', /* ゴールドに近い、くすんだ黄色 */
+                        'amber-tea': '#d97706', /* 淹れたての琥珀色 */
+                        'indigo-bowl': '#1e293b', /* 茶碗の外側の藍色 */
+                        'charcoal': '#2e2e2e', /* 読みやすい落ち着いた炭黒 */
+                    },
+                    fontFamily: {
+                        mincho: ['"Shippori Mincho"', 'serif'],
+                        gothic: ['"Zen Maru Gothic"', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* 和紙＋伝統の七宝（しっぽう）紋様を重ねた贅沢な背景 */
+        .washi-bg {
+            background-color: #f7f4eb;
+            /* ベースの和紙テクスチャに、うっすらと浮かぶ七宝柄のSVGをブレンド */
+            background-image: 
+                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60'%3E%3Cpath d='M30 0 A30 30 0 0 0 0 30 A30 30 0 0 0 30 60 A30 30 0 0 0 60 30 A30 30 0 0 0 30 0 Z M30 5 A25 25 0 0 1 55 30 A25 25 0 0 1 30 55 A25 25 0 0 1 5 30 A25 25 0 0 1 30 5 Z' fill='%23c5a059' fill-opacity='0.025'/%3E%3Ccircle cx='30' cy='30' r='1.5' fill='%23c5a059' fill-opacity='0.04'/%3E%3C/svg%3E"),
+                radial-gradient(rgba(0, 0, 0, 0.02) 1px, transparent 0);
+            background-size: 60px 60px, 8px 8px;
+            background-position: center center, 0 0;
+            position: relative;
+        }
+
+        /* 霧がかかった水墨画風の山並みをCSS背景で演出 */
+        .mountain-mist {
+            background: linear-gradient(135deg, rgba(27, 61, 47, 0.05) 0%, rgba(197, 160, 89, 0.03) 50%, rgba(247, 244, 235, 0) 100%);
+            position: relative;
+        }
+
+        /* テーブルヘッダーやアクセント用の「市松模様」 */
+        .ichimatsu-pattern {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3E%3Crect width='8' height='8' fill='%231b3d2f' fill-opacity='0.04'/%3E%3Crect x='8' y='8' width='8' height='8' fill='%231b3d2f' fill-opacity='0.04'/%3E%3C/svg%3E");
+        }
+
+        /* 流水（りゅうすい）ラインのSVGパターンをあしらう装飾 */
+        .ryusui-bg {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='20' viewBox='0 0 100 20'%3E%3Cpath d='M0 10 Q25 15 50 10 T100 10 M0 15 Q25 20 50 15 T100 15' fill='none' stroke='%23c5a059' stroke-width='0.5' stroke-opacity='0.15'/%3E%3C/svg%3E");
+            background-repeat: repeat-x;
+        }
+
+        /* 湯気の揺らめきアニメーション */
+        @keyframes steam {
+            0% { transform: translateY(0) scaleX(1) opacity: 0; }
+            30% { opacity: 0.4; }
+            50% { transform: translateY(-10px) scaleX(1.1); opacity: 0.5; }
+            80% { opacity: 0.2; }
+            100% { transform: translateY(-25px) scaleX(1.3) opacity: 0; }
+        }
+        .steam-line {
+            animation: steam 4s infinite ease-in-out;
+        }
+        .steam-line-delayed {
+            animation: steam 4.5s infinite ease-in-out;
+            animation-delay: 1.5s;
+        }
+
+        /* ホバー時の優美な浮き上がり効果 */
+        .hover-card {
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .hover-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 30px -10px rgba(27, 61, 47, 0.15);
+        }
+
+        /* 和風の「雲取り（霞）」グラデーションシェイプ */
+        .kasumi-shape {
+            border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+        }
+    </style>
+</head>
+<body class="washi-bg font-gothic text-charcoal min-h-screen flex flex-col antialiased selection:bg-accent-gold/20">
+
+    <!-- ヘッダー装飾（豪華な伝統和柄グラデーションライン） -->
+    <div class="h-2 bg-gradient-to-r from-deep-green via-accent-gold to-deep-green w-full relative">
+        <div class="absolute inset-0 ichimatsu-pattern opacity-40"></div>
+    </div>
+
+    <!-- シンプル和モダンナビゲーション（ホーム等のボタン） -->
+    <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full pt-4 flex justify-between items-center z-20">
+        <div class="font-mincho text-deep-green font-bold tracking-widest text-lg flex items-center gap-1.5">
+            <!-- 和風ロゴマーク（七宝を象った飾り） -->
+            <span class="text-accent-gold text-xl">✥</span> 
+            <span class="hover:opacity-80 transition-opacity">石鎚黒茶の郷</span>
+        </div>
+        <div class="flex gap-4 sm:gap-6 text-sm">
+            <a href="#" class="text-deep-green font-bold hover:text-accent-gold transition-colors duration-200 py-1 border-b-2 border-deep-green flex items-center gap-1">
+                <span>🏠</span> ホーム
+            </a>
+            <a href="#about-kurocha" class="text-stone-600 hover:text-accent-gold transition-colors duration-200 py-1 border-b-2 border-transparent">特徴</a>
+            <a href="#spec-table" class="text-stone-600 hover:text-accent-gold transition-colors duration-200 py-1 border-b-2 border-transparent">基本情報</a>
+            <a href="https://ishizuchikurocha.com/" target="_blank" rel="noopener noreferrer" class="text-stone-600 hover:text-accent-gold transition-colors duration-200 py-1 border-b-2 border-transparent">公式サイト ↗</a>
+            <a href="https://saijo-ah.esnet.ed.jp/" target="_blank" rel="noopener noreferrer" class="hidden sm:inline-block text-stone-600 hover:text-accent-gold transition-colors duration-200 py-1 border-b-2 border-transparent">西条農業高校 ↗</a>
+        </div>
+    </nav>
+
+    <!-- メインコンテンツラッパー -->
+    <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-16 w-full relative z-10">
+        
+        <!-- ================= 3. タイトル・テキストエリア（画面上部） ================= -->
+        <header class="text-center mb-12 md:mb-18 relative">
+            <!-- タイトル背後に浮かぶ、優美なゴールドの「霞（かすみ）雲」グラフィック柄 -->
+            <div class="absolute -top-6 left-1/2 -translate-x-1/2 w-72 h-20 bg-accent-gold/5 blur-xl kasumi-shape pointer-events-none"></div>
+            
+            <div class="inline-block relative px-8 py-4">
+                <!-- 伝統的な飾り枠の四隅（和風コーナー飾り） -->
+                <div class="absolute top-0 left-0 w-5 h-5 border-t-2 border-l-2 border-accent-gold"></div>
+                <div class="absolute top-0 right-0 w-5 h-5 border-t-2 border-r-2 border-accent-gold"></div>
+                <div class="absolute bottom-0 left-0 w-5 h-5 border-b-2 border-l-2 border-accent-gold"></div>
+                <div class="absolute bottom-0 right-0 w-5 h-5 border-b-2 border-r-2 border-accent-gold"></div>
+                
+                <!-- メインタイトル -->
+                <h1 class="font-mincho text-3xl sm:text-4xl md:text-5xl font-bold text-deep-green tracking-widest mb-3 relative z-10">
+                    西条の宝、幻の伝統茶
+                </h1>
+                
+                <!-- サブタイトル -->
+                <p class="text-sm sm:text-base font-mincho tracking-widest text-accent-gold font-bold flex items-center justify-center gap-2">
+                    <span class="text-xs">◆</span>
+                    石鎚黒茶 — Ishizuchi Kurocha —
+                    <span class="text-xs">◆</span>
+                </p>
+            </div>
+            
+            <p class="mt-4 text-sm text-deep-green/70 max-w-md mx-auto leading-relaxed relative z-10">
+                愛媛県西条市に受け継がれる、日本でも極めて稀な「二段発酵」を誇る幻の伝統茶。
+            </p>
+            
+            <!-- 流水模様のアクセントライン -->
+            <div class="w-40 h-3 mx-auto mt-4 ryusui-bg"></div>
+        </header>
+
+        <!-- ================= 2. メインビジュアル（ヒーローエリア） ================= -->
+        <section class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center mb-16 md:mb-24 bg-white/50 rounded-3xl p-6 md:p-8 backdrop-blur-sm shadow-sm border border-stone-200/40 relative overflow-hidden">
+            
+            <!-- 水墨画風アートワーク背景の演出 -->
+            <div class="absolute inset-0 mountain-mist pointer-events-none z-0"></div>
+            <!-- 背景にうっすら流れる流水模様 -->
+            <div class="absolute bottom-0 inset-x-0 h-10 ryusui-bg opacity-30 pointer-events-none"></div>
+            
+            <!-- ヒーロー左側：お茶セットのビジュアル（kurocha.jpgを中央に配置） -->
+            <div class="lg:col-span-7 z-10 flex flex-col justify-center items-center relative w-full">
+                
+                <!-- お茶セット背後の丸窓デザイン（ゴールドの大きな円形和柄） -->
+                <div class="absolute w-72 h-72 sm:w-80 sm:h-80 rounded-full border border-accent-gold/20 bg-gradient-to-tr from-accent-gold/5 via-transparent to-accent-gold/10 -z-10 flex items-center justify-center">
+                    <div class="w-[92%] h-[92%] rounded-full border border-dashed border-accent-gold/15 flex items-center justify-center">
+                        <!-- 丸窓内に透ける七宝柄 -->
+                        <div class="w-full h-full rounded-full opacity-25" style="background-image: url('data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'40\' height=\'40\' viewBox=\'0 0 40 40\'%3E%3Cpath d=\'M20 0 A20 20 0 0 0 0 20 A20 20 0 0 0 20 40 A20 20 0 0 0 40 20 A20 20 0 0 0 20 0 Z\' fill=\'none\' stroke=\'%23c5a059\' stroke-width=\'0.5\'/%3E%3C/svg%3E'); background-size: 30px 30px;"></div>
+                    </div>
+                </div>
+
+                <!-- 写真フレーム（高級感のある古民家・額縁風スタイル） -->
+                <div class="w-full bg-[#ebdcc2] p-2.5 sm:p-4 rounded-2xl shadow-xl border-4 border-[#3a2c1b] relative overflow-hidden">
+                    <!-- 写真の挿入 -->
+                    <div class="relative overflow-hidden rounded-lg shadow-inner bg-stone-900 group">
+                        <img 
+                            src="kurocha.jpg" 
+                            alt="石鎚黒茶のお茶セット" 
+                            class="w-full h-auto object-cover rounded-lg transform group-hover:scale-102 transition duration-500 ease-out"
+                            onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1576092768241-dec231879fc3?auto=format&fit=crop&w=800&q=80';"
+                        />
+                        <!-- うっすらとした和風オーバーレイ効果 -->
+                        <div class="absolute inset-0 bg-gradient-to-t from-[#1b3d2f]/10 via-transparent to-transparent pointer-events-none"></div>
+                    </div>
+                    
+                    <!-- キャプション表示 -->
+                    <div class="mt-3 flex justify-between items-center text-[11px] sm:text-xs text-[#5c4033] font-medium px-1">
+                        <span class="flex items-center gap-1">
+                            <span class="text-accent-gold">✥</span> 本物の「西条 石鎚黒茶」セット
+                        </span>
+                        <span class="font-mincho tracking-wider">愛媛県西条市より</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- ヒーロー右側：石鎚山の雄大な自然とお茶のルーツ -->
+            <div class="lg:col-span-5 z-10 space-y-6">
+                <div class="border-l-4 border-accent-gold pl-4 relative">
+                    <span class="text-xs font-bold text-accent-gold uppercase tracking-wider block mb-1">Origin story</span>
+                    <h2 class="font-mincho text-xl md:text-2xl font-bold text-deep-green">
+                        霊峰・石鎚山の麓が育む<br>清らかな水と澄んだ空気
+                    </h2>
+                </div>
+                
+                <p class="text-sm leading-relaxed text-stone-600 font-medium">
+                    西条市が誇る、日本百名山の一つ「石鎚山」。この厳しい大自然に抱かれ、脈々と受け継がれてきた伝統茶です。石鎚山系の名水（うちぬき）を用い、受け継がれし秘伝の製法によって一つ一つ丁寧に手作りされています。
+                </p>
+
+                <!-- 自然環境を模したミニビジュアル（流水ラインの装飾背景） -->
+                <div class="relative bg-gradient-to-r from-deep-green/10 via-accent-gold/10 to-transparent p-4 rounded-xl border border-stone-200/50 overflow-hidden">
+                    <div class="absolute inset-0 ryusui-bg opacity-10 pointer-events-none"></div>
+                    <div class="flex items-center gap-3 relative z-10">
+                        <div class="text-2xl">⛰️</div>
+                        <div class="text-xs">
+                            <p class="font-bold text-deep-green">石鎚山と美しい茶畑</p>
+                            <p class="text-stone-500">西条の自然が、独自のまろやかな酸味を引き出します。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- ================= 4. コンテンツエリア（画面下部） ================= -->
+        <div id="about-kurocha" class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 mb-16 md:mb-24">
+            
+            <!-- 左側（魅力・特徴） -->
+            <section class="bg-white/95 rounded-2xl p-6 md:p-8 shadow-sm border border-stone-200/60 hover-card relative overflow-hidden">
+                <!-- 装飾：右上にうっすらと浮かぶ市松の飾り -->
+                <div class="absolute top-0 right-0 w-24 h-24 ichimatsu-pattern opacity-30 pointer-events-none rounded-tr-2xl"></div>
+                
+                <div class="flex items-center gap-3 mb-6 pb-4 border-b border-stone-100 relative z-10">
+                    <div class="w-10 h-10 rounded-full bg-deep-green flex items-center justify-center text-white text-lg">
+                        🍃
+                    </div>
+                    <div>
+                        <span class="text-xs text-accent-gold font-bold tracking-widest block uppercase">Unique process</span>
+                        <h3 class="font-mincho text-xl font-bold text-deep-green">
+                            石鎚黒茶の魅力と特徴
+                        </h3>
+                    </div>
+                </div>
+
+                <div class="space-y-4 text-stone-600 text-sm leading-relaxed relative z-10">
+                    <p class="font-bold text-deep-green/90 border-l-2 border-accent-gold pl-2">
+                        全国でも非常に珍しい、二段階の発酵製法
+                    </p>
+                    <p>
+                        石鎚黒茶の最大の特徴は、一度目の「糸状菌（かび）」による好気性発酵ののち、桶に漬けて二度目の「乳酸菌」による嫌気性発酵を行う「二段発酵」です。
+                    </p>
+                    <p>
+                        これにより、口当たりがまろやかで、ほんのり甘酸っぱい、他のお茶には決して真似できない黄金色の風味が誕生します。すっきりとした飲み心地が日々の暮らしに安らぎを与えます。
+                    </p>
+                </div>
+                
+                <div class="mt-6 flex flex-wrap gap-2 relative z-10">
+                    <span class="bg-deep-green/10 text-deep-green text-xs px-3 py-1 rounded-full font-bold">乳酸菌発酵</span>
+                    <span class="bg-accent-gold/10 text-accent-gold text-xs px-3 py-1 rounded-full font-bold">手仕事 of 逸品</span>
+                    <span class="bg-stone-100 text-stone-600 text-xs px-3 py-1 rounded-full font-bold">愛媛県無形民俗文化財</span>
+                </div>
+            </section>
+
+            <!-- 右側（活用法） -->
+            <section class="bg-white/95 rounded-2xl p-6 md:p-8 shadow-sm border border-stone-200/60 hover-card relative overflow-hidden">
+                <!-- 装飾：右上にうっすらと浮かぶ七宝の飾り -->
+                <div class="absolute top-0 right-0 w-24 h-24 pointer-events-none rounded-tr-2xl opacity-10" style="background-image: url('data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'24\' height=\'24\' viewBox=\'0 0 24 24\'%3E%3Ccircle cx=\'12\' cy=\'12\' r=\'10\' fill=\'none\' stroke=\'%23c5a059\' stroke-width=\'1\'/%3E%3C/svg%3E');"></div>
+
+                <div class="flex items-center gap-3 mb-6 pb-4 border-b border-stone-100 relative z-10">
+                    <div class="w-10 h-10 rounded-full bg-accent-gold flex items-center justify-center text-white text-lg">
+                        🍵
+                    </div>
+                    <div>
+                        <span class="text-xs text-deep-green font-bold tracking-widest block uppercase">How to enjoy</span>
+                        <h3 class="font-mincho text-xl font-bold text-deep-green">
+                            おすすめの活用法・楽しみ方
+                        </h3>
+                    </div>
+                </div>
+
+                <p class="text-stone-600 text-sm mb-6 leading-relaxed relative z-10">
+                    独特の爽やかな酸味を持つ石鎚黒茶は、様々なシーンにぴったり。特別な時間にも、毎日の食卓にも。
+                </p>
+
+                <!-- 箇条書き（独自の茶葉ドットデザイン） -->
+                <ul class="space-y-4 relative z-10">
+                    <li class="flex items-start gap-3">
+                        <span class="text-accent-gold shrink-0 mt-1">🍃</span>
+                        <div>
+                            <strong class="text-deep-green block text-sm font-bold">まずは「ストレート」で味わう</strong>
+                            <span class="text-stone-500 text-xs">温かく淹れて、爽快な酸味と奥深いまろやかさをそのまま感じて。</span>
+                        </div>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <span class="text-accent-gold shrink-0 mt-1">🍃</span>
+                        <div>
+                            <strong class="text-deep-green block text-sm font-bold">日々の「お食事と一緒に」</strong>
+                            <span class="text-stone-500 text-xs">すっきりとした後味が油っこい料理や和食の味を美しく引き立てます。</span>
+                        </div>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <span class="text-accent-gold shrink-0 mt-1">🍃</span>
+                        <div>
+                            <strong class="text-deep-green block text-sm font-bold">西条の定番「黒茶のお茶漬け」</strong>
+                            <span class="text-stone-500 text-xs">ご飯に注ぐだけで、贅沢な酸味がお米の甘みを惹き出し、格別な一杯に。</span>
+                        </div>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <span class="text-accent-gold shrink-0 mt-1">🍃</span>
+                        <div>
+                            <strong class="text-deep-green block text-sm font-bold">夏にはキリッと冷やした「冷茶」</strong>
+                            <span class="text-stone-500 text-xs">冷やすことでよりフルーティーな香りが際立ち、涼やかなひとときを演出します。</span>
+                        </div>
+                    </li>
+                </ul>
+            </section>
+
+        </div>
+
+        <!-- ================= 追加セクション：石鎚黒茶の基本仕様表（Table） ================= -->
+        <section id="spec-table" class="bg-white/80 rounded-2xl p-6 md:p-8 shadow-sm border border-stone-200/60 mb-16 md:mb-24 relative overflow-hidden">
+            <!-- 背景を流れる流水装飾 -->
+            <div class="absolute inset-x-0 top-0 h-16 ryusui-bg opacity-10 pointer-events-none"></div>
+
+            <div class="text-center mb-8 relative z-10">
+                <span class="text-xs text-accent-gold font-bold tracking-widest block uppercase">Specification</span>
+                <h3 class="font-mincho text-2xl font-bold text-deep-green mt-1">石鎚黒茶の詳細情報</h3>
+                <div class="w-12 h-[2px] bg-accent-gold mx-auto mt-3"></div>
+            </div>
+
+            <!-- テーブルコンテナ（モバイルでの横スクロール対応） -->
+            <div class="overflow-x-auto relative z-10">
+                <table class="w-full text-left border-collapse min-w-[600px] text-sm md:text-base">
+                    <thead>
+                        <!-- 市松和柄を重ねて高級感を演出した見出し行 -->
+                        <tr class="border-b-2 border-accent-gold bg-deep-green text-white font-mincho relative">
+                            <th class="py-4 px-6 font-bold w-1/4 relative overflow-hidden">
+                                <div class="absolute inset-0 ichimatsu-pattern opacity-10"></div>
+                                <span class="relative z-10">項目</span>
+                            </th>
+                            <th class="py-4 px-6 font-bold relative overflow-hidden">
+                                <div class="absolute inset-0 ichimatsu-pattern opacity-10"></div>
+                                <span class="relative z-10">石鎚黒茶（いしづちくろちゃ）の詳細</span>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-stone-200">
+                        <tr class="hover:bg-stone-50/50 transition-colors">
+                            <td class="py-4 px-6 font-bold text-deep-green font-mincho">旬の時期（製造期）</td>
+                            <td class="py-4 px-6 text-stone-600 leading-relaxed">
+                                <span class="font-bold text-stone-800">毎年 7月〜8月（夏季限定）</span><br>
+                                茶葉の収穫から、1ヶ月以上にわたる丁寧な発酵工程を経て秋頃より美味しく仕上がります。
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-stone-50/50 transition-colors">
+                            <td class="py-4 px-6 font-bold text-deep-green font-mincho">主な産地</td>
+                            <td class="py-4 px-6 text-stone-600 leading-relaxed">
+                                <span class="font-bold text-stone-800">愛媛県西条市（小松地域など石鎚山麓エリア）</span><br>
+                                かつては弘法大師ゆかりの山岳修行者に愛飲されたとも伝わる、西条市固有の地です。
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-stone-50/50 transition-colors">
+                            <td class="py-4 px-6 font-bold text-deep-green font-mincho">製法の特徴</td>
+                            <td class="py-4 px-6 text-stone-600 leading-relaxed">
+                                <span class="bg-accent-gold/10 text-accent-gold text-xs px-2 py-0.5 rounded font-bold mr-1.5">二段発酵</span>
+                                釜茹で ➔ 一次発酵（糸状菌・カビ）➔ もみほぐし ➔ 二次発酵（桶での乳酸菌発酵）➔ 天日干し。<br>
+                                非常に手間暇のかかる日本にわずか4種しか現存しない「後発酵茶」の一つです。
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-stone-50/50 transition-colors">
+                            <td class="py-4 px-6 font-bold text-deep-green font-mincho">味わいと香り</td>
+                            <td class="py-4 px-6 text-stone-600 leading-relaxed">
+                                乳酸発酵由来の、<span class="font-bold text-amber-tea">リンゴや柑橘を思わせる爽やかで甘酸っぱい酸味</span>と、渋みのないすっきりとした喉越し。黄金〜琥珀色の美しい液体が特徴です。
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-stone-50/50 transition-colors">
+                            <td class="py-4 px-6 font-bold text-deep-green font-mincho">文化財指定</td>
+                            <td class="py-4 px-6 text-stone-600">
+                                平成30年「国の無形民俗文化財」および「愛媛県無形民俗文化財」に指定・選定。
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- ================= コール・トゥ・アクション (ボタンエリア) ================= -->
+        <section class="mt-16 text-center bg-white/45 border border-stone-200/50 rounded-2xl p-8 max-w-4xl mx-auto relative overflow-hidden">
+            <!-- 背景の和風幾何学ライン -->
+            <div class="absolute inset-0 ryusui-bg opacity-10 pointer-events-none"></div>
+            
+            <p class="text-stone-500 text-xs font-bold tracking-widest mb-2 relative z-10">伝統を愛で、地域を想う</p>
+            <h4 class="font-mincho text-lg font-bold text-deep-green mb-6 relative z-10">
+                幻のお茶を後世へ繋ぐ、西条の人々
+            </h4>
+            <p class="text-xs text-stone-600 max-w-xl mx-auto mb-8 leading-relaxed relative z-10">
+                一度は途絶えかけた石鎚黒茶の製造。その危機を救い、現在も地域の伝統を守り続けているのが<span class="font-bold text-deep-green">愛媛県立西条農業高等学校</span>の生徒たちです。彼らのたゆまぬ研究と情熱が、この幻の味を現代に繋いでいます。詳しい紹介や本場のお取り寄せ情報は以下の各外部サイトをご覧ください。
+            </p>
+            
+            <div class="flex flex-col lg:flex-row gap-4 justify-center items-center relative z-10">
+                <!-- 西条市公式 案内ページ -->
+                <a href="https://www.city.saijo.ehime.jp/soshiki/sangyoshinko/ishidutikurocya.html" target="_blank" rel="noopener noreferrer" class="bg-white hover:bg-stone-50 text-deep-green border border-deep-green px-6 py-3.5 rounded-full font-bold shadow-sm transition duration-300 text-sm tracking-wider w-full lg:w-auto inline-flex items-center justify-center gap-2">
+                    <span>🏛️</span> 西条市 公式紹介 ↗
+                </a>
+                
+                <!-- 公式ネットショップ -->
+                <a href="https://ishizuchikurocha.com/" target="_blank" rel="noopener noreferrer" class="bg-accent-gold hover:bg-[#b08b47] text-white px-6 py-3.5 rounded-full font-bold shadow-md hover:shadow-lg transition duration-300 text-sm tracking-wider w-full lg:w-auto inline-flex items-center justify-center gap-2">
+                    <span>🛒</span> 公式ネットショップ ↗
+                </a>
+                
+                <!-- 西条農業高校 リンクボタン -->
+                <a href="https://saijo-ah.esnet.ed.jp/" target="_blank" rel="noopener noreferrer" class="bg-deep-green hover:bg-[#143025] text-white px-6 py-3.5 rounded-full font-bold shadow-md hover:shadow-lg transition duration-300 text-sm tracking-wider w-full lg:w-auto inline-flex items-center justify-center gap-2 overflow-hidden relative">
+                    <div class="absolute inset-0 ichimatsu-pattern opacity-10"></div>
+                    <span class="relative z-10">🏫 西条農業高校 サイト ↗</span>
+                </a>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ================= 5. フッター ================= -->
+    <footer class="bg-deep-green text-white/90 text-center py-10 relative z-20 mt-16 overflow-hidden">
+        <!-- フッター用の市松和柄と流水背景 -->
+        <div class="absolute inset-0 ichimatsu-pattern opacity-5"></div>
+        <div class="absolute top-0 inset-x-0 h-6 ryusui-bg opacity-10"></div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-4 relative z-10">
+            
+            <!-- フッター装飾ロゴ風 -->
+            <div class="flex items-center justify-center gap-3">
+                <div class="h-[1px] bg-white/20 w-12"></div>
+                <span class="font-mincho text-sm tracking-widest text-accent-gold font-bold">石鎚黒茶</span>
+                <div class="h-[1px] bg-white/20 w-12"></div>
+            </div>
+
+            <!-- コピーライト -->
+            <p class="text-xs text-white/60 tracking-wider">
+                &copy; 2026 西条市特産品 推し紹介サイト
+            </p>
+            
+            <p class="text-[10px] text-white/40">
+                本サイトは、愛媛県西条市の至宝である「石鎚黒茶」の魅力を世界に伝えるためのデザインモデルです。
+            </p>
+        </div>
+    </footer>
+
+</body>
+</html>
